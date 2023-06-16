@@ -1,14 +1,16 @@
 package com.autobots.automanager.entidades;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 import org.springframework.hateoas.RepresentationModel;
-
-
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,22 +18,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Endereco extends RepresentationModel<Endereco>{
-	@Id
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Credencial extends RepresentationModel<Credencial>{
+	@Id()
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(nullable = false)
-	private String estado;
-	@Column(nullable = false)
-	private String cidade;
-	@Column(nullable = false)
-	private String bairro;
-	@Column(nullable = false)
-	private String rua;
-	@Column(nullable = false)
-	private String numero;
-	@Column(nullable = false)
-	private String codigoPostal;
+	private Date criacao;
 	@Column()
-	private String informacoesAdicionais;
+	private Date ultimoAcesso;
+	@Column(nullable = false)
+	private boolean inativo;
 }
